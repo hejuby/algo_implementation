@@ -1,61 +1,4 @@
 function heapSort(array) {
-  const retArray = Heap(array);
-  
-  return retArray.heapSort();
-}
-
-function Heap(array) {
-  this.array = array;
-
-  function printHeap() {
-    console.log(this.array);
-  }
-
-  function insert(x) {
-    this.array.push(x);
-  }
-
-  function max() {
-    this.heapSort();
-
-    return this.array[0];
-  }
-
-  function extractMax() {
-    this.heapSort();
-
-    return this.array.shift();
-  }
-
-  function maxHeapify(i) {
-    let tmp;
-    if (i*2 > this.array.length) {
-      return this.array;
-    } else {
-      if (this.array[i] >= this.array[i*2] && this.array[i] >= this.array[i*2+1]) {
-        return this.array;
-      } else {
-        if (this.array[i*2] > this.array[i*2+1]) {
-          swapNumbers(this.array, i, i*2);
-          this.maxHeapify(i*2);
-        } else {
-          swapNumbers(this.array, i, i*2+1);
-          this.maxHeapify(i*2+1);
-        }
-      }
-    }
-  }
-
-  function buildMaxHeap() {
-
-  }
-
-  function heapSort() {
-
-  }
-}
-
-function heapSort(array) {
   const ret = [];
   buildMaxHeap(array);
   while (array.length > 1) {
@@ -70,7 +13,7 @@ function heapSort(array) {
 }
 
 function buildMaxHeap(array) {
-  for (let i = array.length/2-1; i >= 0; i--) {
+  for (let i = Math.floor(array.length/2)-1; i >= 0; i--) {
     maxHeapify(array, i);
   }
 
@@ -78,7 +21,6 @@ function buildMaxHeap(array) {
 }
 
 function maxHeapify(array, i) {
-  let tmp;
   if (i*2+1 >= array.length) {
     return array;
   } else if (i*2+1 == array.length - 1) {
