@@ -12,11 +12,11 @@ class LinkedList {
   }
 
   append(data) {
-    const newNode = new Node(data);
+    let newNode = new Node(data);
     if (!this.head) {
       this.head = newNode;
     } else {
-      const current = this.head;
+      let current = this.head;
       while (current.next) {
         current = current.next;
       }
@@ -26,7 +26,7 @@ class LinkedList {
   }
 
   prepend(data) {
-    const newNode = new Node(data);
+    let newNode = new Node(data);
     newNode.next = this.head;
     this.head = newNode;
     this.size++;
@@ -48,11 +48,26 @@ class LinkedList {
       previous.next = current.next;
     }
     this.size--;
-    return current;
+    return current.data;
   }
 
   clear() {
     this.head = null;
     this.size = 0;
+  }
+
+  length() {
+    return this.size;
+  }
+
+  get(key) {
+    if (key < 0 || key >= this.size) {
+      return;
+    }
+    let current = this.head;
+    for (let i = 0; i < key; i++) {
+      current = current.next;
+    }
+    return current.data;
   }
 }

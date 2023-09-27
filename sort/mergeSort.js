@@ -5,7 +5,7 @@ function mergeSort(array) {
   const R = mergeSort(array.splice(Math.floor(array.length/2)));
   const L = mergeSort(array);
 
-  return merge(L, R);
+  return newMerge(L, R);
 }
 
 function merge(L, R) {
@@ -32,6 +32,28 @@ function merge(L, R) {
         break;
       }
     }
+  }
+
+  return array;
+}
+
+function newMerge(L, R) {
+  let cursorl = 0;
+  let cursorr = 0;
+  let array = [];
+  while (cursorl < L.length && cursorr < R.length) {
+    if (L[cursorl] < R[cursorr]) {
+      array.push(L[cursorl]);
+      cursorl++;
+    } else {
+      array.push(R[cursorr]);
+      cursorr++;
+    }
+  }
+  if (cursorl < L.length) {
+    array = array.concat(L.splice(cursorl));
+  } else {
+    array = array.concat(R.splice(cursorr));
   }
 
   return array;
