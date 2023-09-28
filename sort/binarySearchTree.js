@@ -178,4 +178,42 @@ class BST {
 
     return current;
   }
+
+  nextLarger(key) {
+    let current = this.search(key);
+    if (current.right) {
+      current = current.right;
+      while (current.left) {
+        current = current.left;
+      }
+      return current;
+    } else {
+      while (!current.parent) {
+        if (current.parent.left === current) {
+          return current.parent;
+        } else {
+          current = current.parent;
+        }
+      }
+    }
+  }
+
+  nextSmaller(key) {
+    let current = this.search(key);
+    if (current.left) {
+      current = current.left;
+      while (current.right) {
+        current = current.right;
+      }
+      return current;
+    } else {
+      while (!current.parent) {
+        if (current.parent.right === current) {
+          return current.parent;
+        } else {
+          current = current.parent;
+        }
+      }
+    }
+  }
 }
