@@ -188,7 +188,7 @@ class BST {
       }
       return current;
     } else {
-      while (!current.parent) {
+      while (current.parent) {
         if (current.parent.left === current) {
           return current.parent;
         } else {
@@ -207,7 +207,7 @@ class BST {
       }
       return current;
     } else {
-      while (!current.parent) {
+      while (current.parent) {
         if (current.parent.right === current) {
           return current.parent;
         } else {
