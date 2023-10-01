@@ -4,7 +4,7 @@ class Node {
     this.parent = null;
     this.left = null;
     this.right  = null;
-    this.height = null;
+    this.height = 0;
   }
 
   insert(node) {
@@ -14,6 +14,7 @@ class Node {
       } else {
         this.left = node;
         node.parent = this;
+        node.updateHeight();
       }
     } else {
       if (this.right) {
@@ -21,6 +22,7 @@ class Node {
       } else {
         this.right = node;
         node.parent = this;
+        node.updateHeight();
       }
     }
   }
@@ -102,6 +104,66 @@ class Node {
       sub.delete();
     }
   }
+
+  updateHeight() {
+    let current = this;
+    while (current.parent) {
+      current = current.parent;
+      let lefth = (!current.left.height) ? -1 : current.left.height;
+      let righth = (!current.right.height) ? -1 : current.right.height;
+      current.height = Math.max(lefth, righth) + 1;
+      if (Math.abs(lefth - righth) > 1) {
+        current.rotate();
+      }
+    }
+  }
+
+  rotate() {
+    let current = this;
+    if (current.right && current.right.right) {
+    // LL
+      current.leftRotate();
+    } else if (current.left && current.left.left) {
+    // RR
+      current.rightRotate();
+    } else if (current.left && current.left.right) {
+    // LR
+      current.left.leftRotate();
+      current.rightRotate();
+    } else {
+    // RL
+      current.right.rightRotate();
+      current.leftRotate();
+    }
+  }
+
+  leftRotate() {
+    let current = this;
+    current.right.left = current;
+    if (current.parent.left === current) {
+      current.parent.left = current.right;
+    } else {
+      current.parent.right = current.right;
+    }
+    current.right.parent = current.parent;
+    current.parent = current.right;
+    current.height = 0;
+    current.parent.height = 1;
+  }
+
+  rightRotate() {
+    let current = this;
+    current.left.right = current;
+    if (current.parent.left === current) {
+      current.parent.left = current.left;
+    } else {
+      current.parent.right = current.left;
+    }
+    current.left.parent = current.parent;
+    current.parent = current.right;
+    current.height = 0;
+    current.parent.height = 1;
+  }
 }
 
 class AVLTree {
@@ -152,9 +214,5 @@ class AVLTree {
     } else {
       return node.delete();
     }
-  }
-
-  checkBalance() {
-
   }
 }
